@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Little Surprise ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Serif+Display&family=Nunito:wght@400;600;700&display=swap');
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  background:#fff0cd;color:#3b2b25;font-family:Nunito,Arial,sans-serif;
+}
+.screen{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateY(18px) scale(.98);
+  transition:.75s cubic-bezier(.2,.8,.2,1);padding:20px
+}
+.screen.active{opacity:1;visibility:visible;transform:none}
+.paper{
+  width:min(680px,94vw);min-height:min(700px,90vh);padding:42px 28px;
+  border:1px solid rgba(255,190,195,.3);border-radius:30px;
+  background:
+   radial-gradient(circle at 20% 10%,rgba(255,190,195,.34),transparent 25%),
+   radial-gradient(circle at 80% 90%,rgba(255,220,150,.24),transparent 25%),
+   #fff8e8;
+  box-shadow:0 30px 100px rgba(100,65,40,.18);position:relative;overflow:hidden;
+}
+.paper:before{content:"";position:absolute;inset:12px;border:1px dashed rgba(255,220,210,.18);border-radius:22px;pointer-events:none}
+.kicker{font-size:9px;letter-spacing:4px;opacity:.55;margin-bottom:15px}
+h1,h2{font-family:"DM Serif Display",Georgia,serif;font-weight:400;margin:0}
+h1{font-size:clamp(58px,13vw,105px);line-height:.8}
+h2{font-size:clamp(42px,9vw,75px)}
+.script{font-family:Caveat,cursive;font-size:clamp(30px,6vw,48px)}
+p{line-height:1.7;color:#6b554b}
+button{
+ border:1px solid #f0aab5;background:#f2aeb8;color:#3b2528;
+ padding:13px 25px;border-radius:999px;font-weight:700;font-size:10px;
+ letter-spacing:2px;cursor:pointer;transition:.25s
+}
+button:hover{transform:translateY(-3px) rotate(-1deg);box-shadow:0 10px 30px rgba(240,170,181,.22)}
+.sticker{position:absolute;font-family:Caveat,cursive;font-size:25px;color:#f5c7b6;transform:rotate(-8deg)}
+.s1{top:55px;left:35px}.s2{right:35px;bottom:65px;transform:rotate(8deg)}
+.heart{font-size:50px;animation:heart 1.4s ease-in-out infinite alternate}
+@keyframes heart{to{transform:scale(1.13) rotate(4deg)}}
+#sparkles{position:fixed;inset:0;pointer-events:none}
+.spark{position:absolute;color:#f5bdc7;animation:float 5s linear infinite;opacity:.55}
+@keyframes float{from{transform:translateY(105vh) rotate(0)}to{transform:translateY(-10vh) rotate(180deg)}}
+
+/* entry */
+.form{width:min(360px,86vw);margin:25px auto;display:grid;gap:12px;position:relative;z-index:2}
+input{
+ width:100%;padding:15px;border:1px solid rgba(255,180,190,.4);
+ background:rgba(255,255,255,.42);border-radius:15px;color:#fff;text-align:center;
+ outline:none;font-size:15px
+}
+input::placeholder{color:#b9a9a7}
+input:focus{border-color:#e79da9;box-shadow:0 0 25px rgba(240,170,181,.12)}
+
+/* loading */
+.loader{width:min(360px,75vw);height:9px;border-radius:10px;background:#392f35;overflow:hidden;margin:25px auto}
+.loader i{display:block;height:100%;width:0;background:#f0aab5;animation:load 2.3s forwards}
+@keyframes load{to{width:100%}}
+
+/* scrapbook photos */
+.gallery{height:min(57vh,520px);width:min(430px,78vw);margin:auto;position:relative;perspective:1200px}
+.photo{
+ position:absolute;inset:0;width:100%;height:100%;object-fit:cover;padding:9px;background:#fffaf0;
+ border:1px solid #e6d5c5;box-shadow:0 22px 45px rgba(100,65,40,.18);
+ opacity:0;transform:rotateY(65deg) rotate(6deg) translateX(100px) scale(.78);
+ transition:1s cubic-bezier(.2,.8,.2,1)
+}
+.photo.active{opacity:1;transform:none}
+.photo.prev{opacity:.15;transform:rotateY(-50deg) rotate(-5deg) translateX(-100px) scale(.75)}
+.tape{position:absolute;width:100px;height:24px;background:rgba(255,207,184,.55);top:3px;left:calc(50% - 50px);z-index:5;transform:rotate(-3deg)}
+.counter{font-size:9px;letter-spacing:4px;opacity:.5;margin-top:13px}
+
+/* cake */
+.cakeArea{height:360px;display:flex;align-items:flex-end;justify-content:center;position:relative}
+.cake{width:250px;height:175px;position:relative;animation:cakeIn 1s both}
+@keyframes cakeIn{from{transform:translateY(90px) scale(.5);opacity:0}to{transform:none;opacity:1}}
+.layer{position:absolute;border-radius:16px 16px 22px 22px;left:0;width:100%}
+.bottom{bottom:0;height:100px;background:linear-gradient(#d98b91,#914b57)}
+.middle{bottom:65px;height:75px;width:88%;left:6%;background:linear-gradient(#ffd0c8,#c76e76)}
+.topcake{bottom:120px;height:65px;width:72%;left:14%;background:#ffe4d8;border-radius:50% 50% 18px 18px}
+.cream{position:absolute;bottom:112px;left:14%;width:72%;height:25px;border-radius:50%;background:#fffaf0}
+.candle{position:absolute;bottom:163px;width:12px;height:53px;background:#f8c3cc;border-radius:8px}
+.c1{left:31%}.c2{left:47%}.c3{left:63%}
+.flame{position:absolute;width:11px;height:17px;top:-19px;left:1px;background:#ffd66e;border-radius:50% 50% 50% 0;transform:rotate(45deg);box-shadow:0 0 20px #ffc05b;animation:flicker .3s infinite alternate}
+@keyframes flicker{to{transform:rotate(45deg) scale(1.25)}}
+.knife{position:absolute;width:145px;height:8px;background:#eee;right:calc(50% - 190px);bottom:150px;transform:rotate(-35deg);opacity:0;border-radius:5px}
+.cut .knife{opacity:1;animation:knife 1s forwards}
+.cut .candle{animation:fall .7s forwards}
+@keyframes knife{from{transform:rotate(-35deg) translate(60px,-45px)}to{transform:rotate(-35deg) translate(0,0);opacity:0}}
+@keyframes fall{to{transform:translateY(45px) rotate(15deg);opacity:0}}
+
+/* final */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:8}
+.conf{position:absolute;top:-20px;width:7px;height:13px;background:#f0aab5;animation:falling 3s linear forwards}
+@keyframes falling{to{transform:translateY(110vh) rotate(720deg)}}
+.music{position:fixed;top:16px;right:16px;z-index:20;width:43px;height:43px;padding:0;background:#fff7e6;color:#3b2b25;border-color:#e79da9}
+
+.paper{
+  background-image:
+    radial-gradient(circle at 12% 18%,rgba(220,145,145,.10) 0 2px,transparent 3px),
+    radial-gradient(circle at 85% 72%,rgba(190,145,90,.10) 0 2px,transparent 3px);
+}
+.paper:after{
+  content:"♡  ✦  ♡  ✧  ♡";
+  position:absolute;left:50%;bottom:13px;transform:translateX(-50%);
+  font-family:Caveat,cursive;font-size:18px;letter-spacing:10px;
+  color:#d9989f;opacity:.42;white-space:nowrap;
+}
+.card{animation:gentleIn .9s ease both}
+@keyframes gentleIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.script{color:#9b625d}
+
+</style>
+</head>
+<body>
+
+<div id="sparkles"></div>
+<div id="confetti" class="confetti"></div>
+<audio id="song" src="nanbiye.mp3" loop preload="auto"></audio>
+<button class="music" id="music">♫</button>
+
+<section class="screen active" id="s0">
+<div class="paper">
+ <div class="sticker s1">made with a little ♡</div>
+ <div class="sticker s2">good things take time ✦</div>
+ <div class="card" style="position:relative;z-index:2;padding-top:70px">
+  <div class="heart">♡</div>
+  <div class="kicker">A LITTLE SURPRISE FOR YOU</div>
+  <h1>Hey...</h1>
+  <div class="script">I kept a tiny secret.</div>
+  <p>Open this little scrapbook when you're ready.</p>
+  <button id="open">OPEN THE ENVELOPE →</button>
+ </div>
+</div>
+</section>
+
+<section class="screen" id="s1">
+<div class="paper">
+ <div class="kicker">SECRET ENTRY</div>
+ <h2>Tell me about today ♡</h2>
+ <p>Just two little details before the surprise opens.</p>
+ <div class="form">
+  <input id="name" placeholder="Your name" autocomplete="off">
+  <input id="date" type="date">
+  <button id="continue">CONTINUE ♡</button>
+ </div>
+ <div class="script">no pressure... just a little magic ✦</div>
+</div>
+</section>
+
+<section class="screen" id="s2">
+<div class="paper">
+ <div class="kicker">PREPARING YOUR SURPRISE</div>
+ <h2>Just a moment...</h2>
+ <div class="loader"><i></i></div>
+ <div class="script">collecting smiles, memories & wishes ♡</div>
+</div>
+</section>
+
+<section class="screen" id="s3">
+<div class="paper">
+ <div class="sticker s1">today looks cute on you ♡</div>
+ <div class="kicker">TODAY IS YOUR DAY</div>
+ <h2 id="welcome">Hey ♡</h2>
+ <p id="dateShow"></p>
+ <div class="script">A new page. A new little chapter.</div>
+ <br><button id="toPhotos">OPEN THE SCRAPBOOK →</button>
+</div>
+</section>
+
+<section class="screen" id="s4">
+<div class="paper">
+ <div class="kicker">MEMORIES • LITTLE MOMENTS • SMILES</div>
+ <div class="gallery">
+  <div class="tape"></div>
+  <img class="photo" src="photo1.png" alt="Memory 1">
+  <img class="photo" src="photo2.png" alt="Memory 2">
+  <img class="photo" src="photo3.png" alt="Memory 3">
+  <img class="photo" src="photo4.png" alt="Memory 4">
+  <img class="photo" src="photo5.png" alt="Memory 5">
+  <img class="photo" src="photo6.png" alt="Memory 6">
+ </div>
+ <div class="counter" id="counter">01 / 06</div><br>
+ <button id="next">NEXT PAGE ✦</button>
+</div>
+</section>
+
+
+<section class="screen" id="friendPage">
+<div class="paper">
+ <div class="sticker s1">a little note ♡</div>
+ <div class="sticker s2">for a forever friend ✦</div>
+ <div class="kicker">A FEW WORDS ABOUT FRIENDSHIP</div>
+ <h2>Some friendships<br>feel different. ♡</h2>
+ <p style="font-size:18px;margin:25px auto;max-width:520px">
+  No matter how many days change,<br>
+  a true friend still feels like home.<br>
+  Fights may come, and people may change,<br>
+  but some bonds are simply meant to stay.
+ </p>
+ <div class="script">Thank you for being a beautiful part of my story. ♡</div>
+ <br>
+ <button id="friendNext">NOW, MAKE A WISH →</button>
+</div>
+</section>
+
+<section class="screen" id="s5">
+<div class="paper">
+ <div class="kicker">MAKE A WISH</div>
+ <h2>One more thing...</h2>
+ <div class="cakeArea" id="cakeArea">
+  <div class="cake" id="cake">
+   <div class="layer bottom"></div><div class="layer middle"></div>
+   <div class="layer topcake"></div><div class="cream"></div>
+   <div class="candle c1"><span class="flame"></span></div>
+   <div class="candle c2"><span class="flame"></span></div>
+   <div class="candle c3"><span class="flame"></span></div>
+  </div>
+  <div class="knife"></div>
+ </div>
+ <button id="cut">CUT THE CAKE 🎂</button>
+</div>
+</section>
+
+<section class="screen" id="s6">
+<div class="paper">
+ <div class="kicker">A SMALL NOTE</div>
+ <div class="script">No matter how many pages life adds...</div>
+ <h2 style="margin-top:14px">Some friendships stay. ♡</h2>
+ <p style="font-size:18px">
+ எவ்வளவு பிரச்சனை வந்தாலும்,<br>
+ எத்தனை சண்டை வந்தாலும்,<br>
+ நீ என் friend தான்.
+ </p>
+ <div class="script">You’ll always be my friend.</div>
+ <br><button id="finish">ONE LAST PAGE →</button>
+</div>
+</section>
+
+<section class="screen" id="s7">
+<div class="paper">
+ <div class="heart">♡</div>
+ <div class="kicker">THE LAST PAGE</div>
+ <h2 id="final">HAPPY BIRTHDAY</h2>
+ <p>Keep smiling. Keep growing. Keep being you.</p>
+ <div class="script">May your next chapter be full of beautiful moments ✦</div>
+ <div style="font-size:55px;margin:20px">🎀</div>
+ <div class="kicker">TTL CREATOR’S • 9994577018</div>
+</div>
+</section>
+
+<script>
+const screens=[...document.querySelectorAll(".screen")];
+let current=0;
+function go(n){screens[current].classList.remove("active");current=n;screens[n].classList.add("active")}
+
+const song=document.getElementById("song");
+const music=document.getElementById("music");
+function playMusic(){song.volume=.55;song.play().catch(()=>{})}
+
+document.getElementById("open").onclick=()=>{playMusic();go(1)};
+
+document.getElementById("continue").onclick=()=>{
+ const name=document.getElementById("name").value.trim();
+ const date=document.getElementById("date").value;
+ if(!name||!date){alert("Please enter your name and birthday date ♡");return}
+ const d=new Date(date+"T00:00:00");
+ document.getElementById("welcome").textContent="Hey, "+name+" ♡";
+ document.getElementById("dateShow").textContent=
+   "Your special date • "+d.toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"});
+ document.getElementById("final").textContent="HAPPY BIRTHDAY, "+name.toUpperCase();
+ go(2);
+ setTimeout(()=>go(3),2400);
+};
+
+document.getElementById("toPhotos").onclick=()=>go(4);
+document.getElementById("finish").onclick=()=>go(7);
+document.getElementById("friendNext").onclick=()=>go(5);
+
+const photos=[...document.querySelectorAll(".photo")];
+let idx=0;
+function showPhoto(n){
+ idx=(n+photos.length)%photos.length;
+ photos.forEach((p,i)=>{
+  p.classList.toggle("active",i===idx);
+  p.classList.toggle("prev",i===(idx-1+photos.length)%photos.length);
+ });
+ document.getElementById("counter").textContent=
+  String(idx+1).padStart(2,"0")+" / 06";
+}
+document.getElementById("next").onclick=()=>{
+ if(idx===photos.length-1){go(8);return}
+ showPhoto(idx+1);
+};
+showPhoto(0);
+
+document.getElementById("cut").onclick=()=>{
+ const area=document.getElementById("cakeArea");
+ area.classList.add("cut");
+ setTimeout(()=>{makeConfetti();go(6)},1200);
+};
+
+function makeConfetti(){
+ const box=document.getElementById("confetti");
+ box.innerHTML="";
+ for(let i=0;i<85;i++){
+  const c=document.createElement("i");c.className="conf";
+  c.style.left=Math.random()*100+"%";
+  c.style.animationDelay=(Math.random()*.7)+"s";
+  c.style.transform="rotate("+Math.random()*360+"deg)";
+  box.appendChild(c);
+ }
+}
+music.onclick=()=>{
+ if(song.paused){playMusic();music.textContent="♫"}
+ else{song.pause();music.textContent="Ⅱ"}
+};
+
+for(let i=0;i<30;i++){
+ const s=document.createElement("span");s.className="spark";
+ s.textContent=["✦","♡","·","✧"][Math.floor(Math.random()*4)];
+ s.style.left=Math.random()*100+"%";
+ s.style.animationDuration=(5+Math.random()*8)+"s";
+ s.style.animationDelay=(-Math.random()*10)+"s";
+ s.style.fontSize=(8+Math.random()*14)+"px";
+ document.getElementById("sparkles").appendChild(s);
+}
+</script>
+</body>
+</html>
