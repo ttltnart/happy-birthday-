@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Birthday Memories ♡</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:#fff0cd;
+  font-family:Georgia,serif;
+  color:#3a2924;
+  overflow-x:hidden;
+}
+.page{
+  min-height:100vh;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:28px 18px;
+  position:relative;
+}
+.page.active{display:flex}
+.card{
+  width:min(430px,100%);
+  text-align:center;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:32px;
+  padding:42px 24px;
+  box-shadow:0 18px 50px rgba(92,62,45,.12);
+  backdrop-filter:blur(8px);
+}
+.kicker{
+  font-size:12px;
+  letter-spacing:4px;
+  color:#c85d78;
+  margin-bottom:16px;
+  text-transform:uppercase;
+}
+h1{
+  font-size:38px;
+  line-height:1.15;
+  margin-bottom:14px;
+}
+p{line-height:1.7;font-size:16px}
+button{
+  border:0;
+  margin-top:25px;
+  padding:14px 25px;
+  border-radius:999px;
+  background:#d96f8b;
+  color:white;
+  font-size:14px;
+  letter-spacing:1px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(217,111,139,.25);
+  transition:.25s;
+}
+button:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(217,111,139,.35)}
+input{
+  width:100%;
+  padding:15px 17px;
+  margin-top:10px;
+  border:1px solid #e8c6a8;
+  border-radius:15px;
+  outline:none;
+  background:#fffaf0;
+  color:#3a2924;
+  font-size:15px;
+}
+.form{text-align:left;margin-top:20px}
+label{font-size:12px;color:#8b6b60}
+.decor{
+  position:absolute;
+  font-size:25px;
+  animation:float 4s ease-in-out infinite;
+  opacity:.75;
+}
+.d1{top:9%;left:9%}.d2{top:17%;right:10%;animation-delay:1s}
+.d3{bottom:12%;left:13%;animation-delay:2s}.d4{bottom:17%;right:12%;animation-delay:3s}
+@keyframes float{50%{transform:translateY(-12px) rotate(8deg)}}
+.typed{
+  min-height:150px;
+  font-size:18px;
+  line-height:2;
+  color:#c54f70;
+  margin-top:20px;
+}
+.cake{
+  position:relative;
+  width:210px;
+  height:170px;
+  margin:25px auto 5px;
+}
+.cake .top{
+  position:absolute;top:40px;left:20px;width:170px;height:35px;
+  background:#f3a0b4;border-radius:50%;
+}
+.cake .body{
+  position:absolute;top:56px;left:20px;width:170px;height:80px;
+  background:#ffd3b6;border-radius:12px 12px 25px 25px;
+  box-shadow:inset 0 -12px rgba(217,111,139,.13);
+}
+.cake .cream{
+  position:absolute;top:65px;left:20px;width:170px;height:18px;
+  background:#fffaf0;border-radius:50%;
+}
+.candle{
+  position:absolute;top:5px;left:95px;width:18px;height:45px;
+  background:#fff;border-radius:6px;
+}
+.flame{
+  position:absolute;top:-19px;left:3px;width:12px;height:18px;
+  background:#ffb23e;border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  animation:flicker .7s infinite alternate;
+}
+@keyframes flicker{to{transform:rotate(-45deg) scale(1.12)}}
+.confetti{position:fixed;top:-20px;font-size:20px;animation:fall 3s linear forwards;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.memories{display:flex;flex-direction:column;align-items:center;gap:18px}
+.photo{
+  width:min(310px,85vw);
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border:10px solid #fffaf0;
+  border-bottom-width:28px;
+  box-shadow:0 15px 35px rgba(70,45,35,.18);
+  transform:rotate(-3deg) scale(.8);
+  opacity:0;
+  animation:photoIn .8s forwards;
+}
+.photo:nth-child(2){transform:rotate(3deg) scale(.8);animation-delay:.55s}
+.photo:nth-child(3){transform:rotate(-2deg) scale(.8);animation-delay:1.1s}
+@keyframes photoIn{to{opacity:1;transform:rotate(0) scale(1)}}
+.final{font-size:22px;line-height:1.8;color:#c54f70}
+.small{font-size:12px;color:#8c7065;margin-top:20px}
+</style>
+</head>
+
+<body>
+
+<section class="page active" id="p1">
+  <span class="decor d1">🌷</span><span class="decor d2">✨</span>
+  <span class="decor d3">🌸</span><span class="decor d4">🎀</span>
+  <div class="card">
+    <div class="kicker">a tiny surprise</div>
+    <h1>Hey you... ♡</h1>
+    <p>Some little memories are too special to leave hidden.</p>
+    <button onclick="next()">OPEN THE SURPRISE ✦</button>
+  </div>
+</section>
+
+<section class="page" id="p2">
+  <div class="card">
+    <div class="kicker">just for today</div>
+    <h1>One little thing 🎀</h1>
+    <p>Enter a name and date, then let the birthday magic begin.</p>
+    <div class="form">
+      <label>NAME</label>
+      <input id="name" placeholder="Enter name">
+      <label style="display:block;margin-top:14px">BIRTHDAY</label>
+      <input id="date" type="date">
+    </div>
+    <button onclick="birthday()">LET'S CELEBRATE ✨</button>
+  </div>
+</section>
+
+<section class="page" id="p3">
+  <div class="card">
+    <div class="kicker">happy birthday</div>
+    <h1 id="birthdayTitle">Happy Birthday! 🎂</h1>
+    <div class="cake">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="top"></div><div class="cream"></div><div class="body"></div>
+    </div>
+    <p>Make a little wish... and blow out the candle. ✨</p>
+    <button onclick="celebrate()">CUT THE CAKE 🎂</button>
+  </div>
+</section>
+
+<section class="page" id="p4">
+  <div class="card">
+    <div class="kicker">a few words</div>
+    <div class="typed" id="typed"></div>
+    <button onclick="next()">OPEN MEMORIES 📸</button>
+  </div>
+</section>
+
+<section class="page" id="p5">
+  <div class="card">
+    <div class="kicker">our little memories</div>
+    <h1>Moments ♡</h1>
+    <p style="margin-bottom:20px">The photos stay hidden until you reach this little corner.</p>
+    <button onclick="showPhotos()">REVEAL MEMORIES ✦</button>
+    <div class="memories" id="memories"></div>
+    <button id="finalBtn" style="display:none" onclick="next()">ONE LAST THING ♡</button>
+  </div>
+</section>
+
+<section class="page" id="p6">
+  <div class="card">
+    <div class="kicker">always remember</div>
+    <div class="final">
+      Whatever changes with time,<br>
+      whatever little fights come and go,<br>
+      you'll always have a friend here.<br><br>
+      <b>You'll always be my friend. ♡</b>
+    </div>
+    <p class="small">TTL CREATOR’S • 9994577018</p>
+  </div>
+</section>
+
+<script>
+let current=1;
+
+function next(){
+  document.getElementById("p"+current).classList.remove("active");
+  current++;
+  document.getElementById("p"+current).classList.add("active");
+  if(current===4) typeText();
+}
+
+function birthday(){
+  const n=document.getElementById("name").value.trim();
+  document.getElementById("birthdayTitle").textContent =
+    n ? "Happy Birthday, "+n+"! 🎂" : "Happy Birthday! 🎂";
+  next();
+}
+
+function celebrate(){
+  for(let i=0;i<35;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.textContent=["✨","🌸","💗","🎀","⭐"][Math.floor(Math.random()*5)];
+    c.style.left=Math.random()*100+"vw";
+    c.style.animationDelay=Math.random()*.8+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3800);
+  }
+  setTimeout(next,900);
+}
+
+function typeText(){
+  const text="No matter how many small fights happen, or how much life changes, one thing stays simple... I'm always happy that you're my friend. ♡";
+  const box=document.getElementById("typed");
+  box.innerHTML="";
+  let i=0;
+  const timer=setInterval(()=>{
+    box.innerHTML=text.slice(0,++i)+"<span>|</span>";
+    if(i>=text.length){
+      clearInterval(timer);
+      setTimeout(()=>box.innerHTML=text,500);
+    }
+  },38);
+}
+
+function showPhotos(){
+  const box=document.getElementById("memories");
+  box.innerHTML="";
+  ["photo1.png","photo2.png","photo3.png"].forEach((src,i)=>{
+    const img=document.createElement("img");
+    img.className="photo";
+    img.src=src;
+    img.alt="Memory "+(i+1);
+    img.onerror=()=>img.style.display="none";
+    box.appendChild(img);
+  });
+  document.getElementById("finalBtn").style.display="inline-block";
+}
+</script>
+</body>
+</html>
